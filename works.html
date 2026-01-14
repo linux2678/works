@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mini Search Engine</title>
+</head>
+<body>
+    <h1>lockedos search engine</h1>
+
+    <input type="text" id="searchBox" placeholder="Search...">
+    <button onclick="search()">Search</button>
+
+    <ul id="results"></ul>
+
+    <script>
+        // Sample data to search
+        const data = [
+        { title: "Chatgpt", url: "https://www.chatgpt.com" },
+            { title: "YouTube", url: "https://www.youtube.com" },
+            { title: "OpenAI", url: "https://www.openai.com" },
+            { title: "Wikipedia", url: "https://www.wikipedia.org" },
+           
+{ title: "Reddit", url: "https://www.reddit.com" },
+{ title: "Twitter", url: "https://www.twitter.com" },
+{ title: "GitHub", url: "https://www.github.com" },
+{ title: "Stack Overflow", url: "https://stackoverflow.com" },
+{ title: "Netflix", url: "https://www.netflix.com" },
+{ title: "Amazon", url: "https://www.amazon.com" },
+{ title: "BBC News", url: "https://www.bbc.com" },
+{ title: "CNN", url: "https://www.cnn.com" },
+{ title: "LinkedIn", url: "https://www.linkedin.com" },
+{ title: "Instagram", url: "https://www.instagram.com" },
+{ title: "Pinterest", url: "https://www.pinterest.com" },
+{ title: "Tumblr", url: "https://www.tumblr.com" },
+{ title: "TikTok", url: "https://www.tiktok.com" },
+{ title: "Snapchat", url: "https://www.snapchat.com" },
+{ title: "WhatsApp Web", url: "https://web.whatsapp.com" },
+{ title: "Discord", url: "https://discord.com" },
+{ title: "Twitch", url: "https://www.twitch.tv" },
+{ title: "Spotify", url: "https://www.spotify.com" },
+{ title: "SoundCloud", url: "https://soundcloud.com" },
+{ title: "Quora", url: "https://www.quora.com" },
+{ title: "Medium", url: "https://medium.com" },
+{ title: "The New York Times", url: "https://www.nytimes.com" },
+{ title: "The Guardian", url: "https://www.theguardian.com" },
+{ title: "HuffPost", url: "https://www.huffpost.com" },
+{ title: "Forbes", url: "https://www.forbes.com" },
+{ title: "Bloomberg", url: "https://www.bloomberg.com" },
+{ title: "MSN", url: "https://www.msn.com" },
+{ title: "Yahoo", url: "https://www.yahoo.com" },
+{ title: "eBay", url: "https://www.ebay.com" },
+{ title: "Etsy", url: "https://www.etsy.com" },
+{ title: "AliExpress", url: "https://www.aliexpress.com" },
+{ title: "Walmart", url: "https://www.walmart.com" },
+{ title: "Target", url: "https://www.target.com" },
+{ title: "Best Buy", url: "https://www.bestbuy.com" },
+{ title: "Home Depot", url: "https://www.homedepot.com" },
+{ title: "Wayfair", url: "https://www.wayfair.com" },
+{ title: "Kickstarter", url: "https://www.kickstarter.com" },
+{ title: "Indiegogo", url: "https://www.indiegogo.com" },
+{ title: "Coursera", url: "https://www.coursera.org" },
+{ title: "edX", url: "https://www.edx.org" },
+{ title: "Khan Academy", url: "https://www.khanacademy.org" },
+{ title: "Udemy", url: "https://www.udemy.com" },
+{ title: "Codecademy", url: "https://www.codecademy.com" },
+{ title: "FreeCodeCamp", url: "https://www.freecodecamp.org" },
+{ title: "Mozilla Developer Network", url: "https://developer.mozilla.org" },
+{ title: "W3Schools", url: "https://www.w3schools.com" },
+{ title: "GeeksforGeeks", url: "https://www.geeksforgeeks.org" },
+{ title: "Stack Exchange", url: "https://stackexchange.com" },
+{ title: "Archive.org", url: "https://archive.org" },
+{ title: "Project Gutenberg", url: "https://www.gutenberg.org" },
+{ title: "IMDb", url: "https://www.imdb.com" },
+{ title: "Rotten Tomatoes", url: "https://www.rottentomatoes.com" },
+{ title: "Metacritic", url: "https://www.metacritic.com" },
+{ title: "Goodreads", url: "https://www.goodreads.com" },
+{ title: "Tripadvisor", url: "https://www.tripadvisor.com" },
+{ title: "Airbnb", url: "https://www.airbnb.com" },
+{ title: "Booking.com", url: "https://www.booking.com" },
+{ title: "Expedia", url: "https://www.expedia.com" },
+{ title: "Skyscanner", url: "https://www.skyscanner.net" },
+{ title: "Kayak", url: "https://www.kayak.com" },
+{ title: "Trivago", url: "https://www.trivago.com" },
+{ title: "Hotels.com", url: "https://www.hotels.com" },
+{ title: "National Geographic", url: "https://www.nationalgeographic.com" },
+{ title: "Smithsonian", url: "https://www.si.edu" },
+{ title: "NASA", url: "https://www.nasa.gov" },
+{ title: "Space.com", url: "https://www.space.com" },
+{ title: "HowStuffWorks", url: "https://www.howstuffworks.com" },
+{ title: "Lifehacker", url: "https://www.lifehacker.com" },
+{ title: "CNET", url: "https://www.cnet.com" },
+{ title: "TechCrunch", url: "https://techcrunch.com" },
+{ title: "The Verge", url: "https://www.theverge.com" },
+{ title: "Engadget", url: "https://www.engadget.com" },
+{ title: "Gizmodo", url: "https://gizmodo.com" },
+{ title: "Digital Trends", url: "https://www.digitaltrends.com" },
+{ title: "PCMag", url: "https://www.pcmag.com" },
+{ title: "Tom’s Hardware", url: "https://www.tomshardware.com" },
+{ title: "AnandTech", url: "https://www.anandtech.com" },
+{ title: "Reddit Programming", url: "https://www.reddit.com/r/programming" },
+{ title: "Hacker News", url: "https://news.ycombinator.com" },
+{ title: "Product Hunt", url: "https://www.producthunt.com" },
+{ title: "Dribbble", url: "https://dribbble.com" },
+{ title: "Behance", url: "https://www.behance.net" },
+{ title: "DeviantArt", url: "https://www.deviantart.com" },
+{ title: "Flickr", url: "https://www.flickr.com" },
+{ title: "Unsplash", url: "https://unsplash.com" },
+{ title: "Pexels", url: "https://www.pexels.com" },
+{ title: "Pixabay", url: "https://pixabay.com" },
+{ title: "Canva", url: "https://www.canva.com" },
+{ title: "Fiverr", url: "https://www.fiverr.com" },
+{ title: "Upwork", url: "https://www.upwork.com" },
+{ title: "Freelancer", url: "https://www.freelancer.com" },
+{ title: "Trello", url: "https://trello.com" },
+{ title: "Notion", url: "https://www.notion.so" },
+{ title: "Asana", url: "https://asana.com" },
+{ title: "Slack", url: "https://slack.com" },
+{ title: "Zoom", url: "https://zoom.us" },
+{ title: "Microsoft Teams", url: "https://www.microsoft.com/en-us/microsoft-teams/group-chat-software" },
+{ title: "Google Drive", url: "https://drive.google.com" },
+{ title: "Dropbox", url: "https://www.dropbox.com" },
+{ title: "Box", url: "https://www.box.com" },
+{ title: "OneDrive", url: "https://www.onedrive.com" },
+{ title: "Evernote", url: "https://evernote.com" },
+{ title: "Todoist", url: "https://todoist.com" },
+{ title: "Pocket", url: "https://getpocket.com" },
+{ title: "Feedly", url: "https://feedly.com" },
+{ title: "Flipboard", url: "https://flipboard.com" },
+{ title: "TED", url: "https://www.ted.com" },
+{ title: "Brainly", url: "https://brainly.com" },
+{ title: "Chegg", url: "https://www.chegg.com" },
+{ title: "Wolfram Alpha", url: "https://www.wolframalpha.com" },
+{ title: "Mathway", url: "https://www.mathway.com" },
+{ title: "Cool Math Games", url: "https://www.coolmathgames.com" }
+
+ 
+
+];
+
+
+
+
+        function search() {
+            const query = document.getElementById("searchBox").value.toLowerCase();
+            const results = data.filter(item => item.title.toLowerCase().includes(query));
+
+            const resultsList = document.getElementById("results");
+            resultsList.innerHTML = ""; // clear old results
+
+            results.forEach(item => {
+                const li = document.createElement("li");
+                const a = document.createElement("a");
+                a.href = item.url;
+                a.textContent = item.title;
+                a.target = "_blank"; // open in new tab
+                li.appendChild(a);
+                resultsList.appendChild(li);
+            });
+
+            if(results.length === 0) {
+                resultsList.innerHTML = "<li>No results found</li>";
+            }
+        }
+    </script>
+</body>
+</html>
